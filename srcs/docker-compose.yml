@@ -1,0 +1,46 @@
+# services:
+#   app:
+#     image: debian:bullseye
+#     # command: sh -c "yarn install && yarn run dev"
+#     command: "docker buid -t srcs/requirements/mariadb/ && run -d mariadb:custom bash"
+#     ports:
+#       # - 127.0.0.1:3000:3000
+#       - localhost
+#     working_dir: /mariadb
+#     # volumes:
+#     #   - ./:/app
+#     environment:
+#       # MYSQL_HOST: mysql
+#       # MYSQL_USER: root
+#       # MYSQL_PASSWORD: secret
+#       # MYSQL_DB: todos
+
+
+version: "3.8"
+
+services:
+  # wordpress:
+
+  # nginx:
+
+  mariadb:
+    build:
+      context: requirements/mariadb/
+    volumes:
+      - vdb:/var/lib/mysql
+    networks:
+      - incepnet
+
+volumes:
+  vdb:
+    driver_opts:
+      type: none
+      device: /Users/charline/cdutel-l/data/mariadbData
+      o: bind
+
+networks:
+  incepnet:
+    driver: bridge
+
+
+      
