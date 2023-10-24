@@ -2,7 +2,7 @@
 #   app:
 #     image: debian:bullseye
 #     # command: sh -c "yarn install && yarn run dev"
-#     command: "docker buid -t srcs/requirements/mariadb/ && run -d mariadb:custom bash"
+#     command: "docker buid -t mariadb:custom srcs/requirements/mariadb/ && run -d mariadb:custom"
 #     ports:
 #       # - 127.0.0.1:3000:3000
 #       - localhost
@@ -19,23 +19,53 @@
 version: "3.8"
 
 services:
-  # wordpress:
+  wordpress:
+    container_name: wordpress
+    build:
+      context: requirements/wordpress
+    volumes:
+      - vwp:/var/www/html
+    networks:
+      - incepnet
+    image: wordpress:custom
+    restart: always
+    depends_on:
+      - mariadb
 
-  # nginx:
+  nginx:
+    container_name: nginx
+    build:
+      context: requirements/nginx
+    networks:
+      - incepnet
+    image: nginx:custom
+    ports:
+      - 443:443
+    restart: always
+    depends_on:
+      - wordpress
 
   mariadb:
+    container_name: mariadb
     build:
       context: requirements/mariadb/
     volumes:
       - vdb:/var/lib/mysql
     networks:
       - incepnet
+    image: mariadb:custom
+    restart: always
 
 volumes:
   vdb:
     driver_opts:
       type: none
       device: /Users/charline/cdutel-l/data/mariadbData
+      o: bind
+  vwp:
+    driver_opts:
+      type: none
+      device: /Users/charline/cdutel-l/data/wordpress
       o: bind
 
 networks:
