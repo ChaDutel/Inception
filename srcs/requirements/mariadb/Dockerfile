@@ -1,9 +1,9 @@
 FROM debian:bullseye
 
-ARG DB_NAME=datab
-ARG USER_NAME=marie
-ARG ROOT_MDP=rooty
-ARG USER_MDP=mama
+ARG DB_NAME
+ARG USER_NAME
+ARG ROOT_MDP
+ARG USER_MDP
 
 RUN apt update -y && \
 	apt upgrade -y &&\

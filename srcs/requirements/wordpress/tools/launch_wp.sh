@@ -4,9 +4,9 @@ cd /var/www/html
 if ! wp core is-installed --allow-root
 then
 	sleep 5
-	wp config create --allow-root --dbname=datab --dbuser=marie --dbpass=mama --dbhost=mariadb
-	wp core install --allow-root --url=cdutel-l.42.fr --title=Inception --admin_user=wpboss --admin_password=wppass --admin_email=cdutel-l@student.42lyon.fr
-	wp user create --allow-root paul paul@gmail.fr --user_pass=popaul
+	wp config create --allow-root --dbname=${DB_NAME} --dbuser=${USER_NAME} --dbpass=${USER_MDP} --dbhost=mariadb
+	wp core install --allow-root --url=cdutel-l.42.fr --title=Inception --admin_user=${WP_ADMIN_USER} --admin_password=${WP_ADMIN_MDP} --admin_email=${WP_ADMIN_MAIL}
+	wp user create --allow-root ${WP_USER_NAME} ${WP_USER_MAIL} --user_pass=${WP_USER_MDP}
 fi
 mkdir -p /run/php
 php-fpm7.4 -F

@@ -11,11 +11,4 @@ COPY tools/default /etc/nginx/sites-available/inceptserv
 
 RUN ln -s /etc/nginx/sites-available/inceptserv /etc/nginx/sites-enabled/inceptserv
 
-# RUN chown -R nginx:nginx /var/www/html
-# RUN chmod -R 755 /var/www/html
-
-# RUN mkdir -p /var/www/html && chown -R nginx:nginx /var/www/html && chmod -R 755 /var/www/html
-
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
-
-# RUN mkdir -p /var/www/html && chown -R nginx:custom /var/www/html && chmod -R 755 /var/www/html
